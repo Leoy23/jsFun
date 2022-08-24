@@ -18,14 +18,38 @@ const { dinosaurs, humans, movies } = require('./datasets/dinosaurs');
 
 // DATASET: kitties from ./datasets/kitties
 const kittyPrompts = {
-  orangePetNames() {
+  orangePetNames(kittiesData) {
     // Return an array of just the names of kitties who are orange e.g.
         // ['Tiger', 'Snickers']
+const orangeKitties = kittiesData.filter((cat) => {
+  return cat.color === 'orange'
+});
 
-        /* CODE GOES HERE */
+const orangeKittiesNames = orangeKitties.map((cat) => {
+return cat.name;
+});
 
-    // Annotation:
-    // Write your annotation here as a comment
+return orangeKittiesNames;
+
+  // Annotation:
+  // pseudo-code
+  // input = an array of objects
+  // output = an array of kitten names who are orange
+  // steps:
+  // I will need to iterate over the kitties array and use filter to
+  //check for the color 'orange' value for each kitten object
+  // should return two kitten objects -> two who are orange
+  // Using map, I will need to find all cats who are orange (since I need more than one,
+  // I will use the filter() method)
+  //need to return an array of those names (filter will return the new array with
+  // the entire kitty object SO, I want to use map to just retrieve those kitties names)
+
+
+
+// things to know:
+// filter and find return booleans!
+// map() returns a new array the same length as the original array
+
   },
 
   sortByAge() {
