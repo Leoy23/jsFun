@@ -18,18 +18,18 @@ const { dinosaurs, humans, movies } = require('./datasets/dinosaurs');
 
 // DATASET: kitties from ./datasets/kitties
 const kittyPrompts = {
-  orangePetNames(kittiesData) {
+  orangePetNames(petData) {
     // Return an array of just the names of kitties who are orange e.g.
         // ['Tiger', 'Snickers']
-const orangeKitties = kittiesData.filter((cat) => {
-  return cat.color === 'orange'
+const orangePets = petData.filter((pet) => {
+  return pet.color === 'orange'
 });
 
-const orangeKittiesNames = orangeKitties.map((cat) => {
-return cat.name;
+const orangePetNames = orangePets.map((pet) => {
+return pet.name;
 });
 
-return orangeKittiesNames;
+return orangePetNames;
 
   // Annotation:
   // pseudo-code
@@ -39,11 +39,10 @@ return orangeKittiesNames;
   // I will need to iterate over the kitties array and use filter to
   //check for the color 'orange' value for each kitten object
   // should return two kitten objects -> two who are orange
-  // Using map, I will need to find all cats who are orange (since I need more than one,
+  // Using map, I will need to find the name of all cats who are orange (since I need more than one,
   // I will use the filter() method)
   //need to return an array of those names (filter will return the new array with
   // the entire kitty object SO, I want to use map to just retrieve those kitties names)
-
 
 
 // things to know:
@@ -52,16 +51,26 @@ return orangeKittiesNames;
 
   },
 
-  sortByAge() {
-    // Sort the kitties by their age
+  sortByAge(petData) {
 
+    // Sort the kitties by their age
+    const petAges = petData.sort((petOne, petTwo) => petTwo.age - petOne.age);
+
+    return petAges;
     /* CODE GOES HERE */
 
     // Annotation:
-    // Write your annotation here as a comment
+    // my initial thought was to use map to grab the ages, and then use sort to sort them out
+    // however, I realized map() creates a new array of the same length based on what you're asking it to look at
+    // after reading sort() documentation more, I saw that sort will do exactly what I needed which
+    // is to sort each kitty object by their ages without creating a new array
+    // so I started with a new variable to hold the ages, then I used sort to subtract kittyTwo's age
+    // from kittyOne's age (based on the docs, if you subtract the second age from the first, you will
+    // be able to sort the kitties array of objects in a descending order)
   },
 
-  growUp() {
+  growUp(petData) {
+
     // Return an array of kitties who have all grown up by 2 years e.g.
     // [{
     //   name: 'Felicia',
@@ -76,8 +85,25 @@ return orangeKittiesNames;
     // ...etc]
 
     /* CODE GOES HERE */
+    const addTwoYears = petData.filter(pet => pet.age += 2);
+
+    return addTwoYears;
   }
 };
+
+  // Annotations
+  // After lots of debating in my head, I found that a forEach will allow me to add
+  // two years to each kitten's age and return an array of the same length as the
+   // original kitty data array. I attempted to write the function above using the
+   // addition assignment operator so that it would add two years to the kittens age
+   // and reassign that value to the corresponding kitten. However I keep returning the
+   // error stating, " AssertionError: expected undefined to deeply equal [ Array(4) ]"
+
+   // Need help knowing what I am doing wrong :(
+
+   // update
+
+
 
 // PLEASE READ-----------------------
 // Currently, your functions are probably using the `kitties` global import variable.
@@ -85,6 +111,9 @@ return orangeKittiesNames;
 // they can perform the same utility
 // for the kitties or puppers datasets, depending on what arguments you send through.
 
+// Annotation
+// After realizing that my data could be easily applied to more data (puppers), I
+// made sure to change the names of everything to take in data related to all pets 
 
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
@@ -268,7 +297,12 @@ const cakePrompts = {
 
 // DATASET: classrooms from ./datasets/classrooms
 const classPrompts = {
-  feClassrooms() {
+  feClassrooms(feClass) {
+    const feClassRooms = classrooms.filter((classroom) => {
+      return classroom.program === 'FE';
+    });
+
+    return feClassRooms;
     // Create an array of just the front-end classrooms. e.g.
     // [
     //   { roomLetter: 'A', program: 'FE', capacity: 32 },
